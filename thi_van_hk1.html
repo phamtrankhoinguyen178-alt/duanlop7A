@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz Văn HK1</title>
+
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#ff9966,#ff5e62);}
+.container{background:white;width:420px;margin:100px auto;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.3);text-align:center;}
+.btn{display:block;width:100%;padding:15px;margin-top:15px;border:none;border-radius:10px;cursor:pointer;}
+.start{background:#4caf50;color:white;}
+.submit{background:#ff9800;color:white;}
+.cancel{background:#f44336;color:white;}
+.home{background:#2196f3;color:white;}
+.question{text-align:left;margin-bottom:15px}
+.correct{color:green}
+.wrong{color:red}
+#timer{font-size:20px;color:#e91e63;margin-bottom:15px;font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<div id="home" class="container">
+<h2>📖 QUIZ NGỮ VĂN HK1</h2>
+<button class="btn start" onclick="startQuiz()">Bắt đầu</button>
+<button class="btn home" onclick="goHome()">Trang chủ</button>
+</div>
+
+<div id="quizPage" class="container" style="display:none;">
+<div id="timer">⏱ 30:00</div>
+<div id="quiz"></div>
+<button class="btn submit" onclick="submitQuiz()">Nộp</button>
+<button class="btn cancel" onclick="cancelQuiz()">Hủy</button>
+</div>
+
+<div id="resultPage" class="container" style="display:none;">
+<h2>Kết quả</h2>
+<div id="score"></div>
+<div id="answers"></div>
+<button class="btn home" onclick="goHome()">Trang chủ</button>
+</div>
+
+<script>
+
+const bank=[
+{q:"Tác giả 'Bánh trôi nước' là ai?",a:["Hồ Xuân Hương","Nguyễn Du","Nam Cao","Tố Hữu"],correct:0},
+{q:"'Sông núi nước Nam' thuộc thể thơ?",a:["Lục bát","Thất ngôn","Ngũ ngôn","Tự do"],correct:1},
+{q:"Văn bản tự sự là?",a:["Kể chuyện","Miêu tả","Biểu cảm","Nghị luận"],correct:0},
+{q:"Nhân vật chính là?",a:["Nhân vật phụ","Nhân vật trung tâm","Người đọc","Tác giả"],correct:1},
+{q:"Miêu tả dùng để?",a:["Kể","Tả","Bàn","Chứng minh"],correct:1},
+
+{q:"Từ láy là?",a:["Lặp âm","Từ ghép","Danh từ","Động từ"],correct:0},
+{q:"Từ ghép là?",a:["Ghép 2 từ","Lặp âm","Từ đơn","Từ láy"],correct:0},
+{q:"Câu trần thuật là?",a:["Hỏi","Kể","Cầu khiến","Cảm thán"],correct:1},
+
+{q:"Chủ ngữ là?",a:["Nêu hành động","Nêu sự vật","Nêu kết quả","Nêu ý"],correct:1},
+{q:"Vị ngữ là?",a:["Chủ thể","Hành động","Danh từ","Tính từ"],correct:1},
+
+{q:"Thơ lục bát gồm?",a:["6-8","5-7","7-7","8-8"],correct:0},
+{q:"Từ đồng nghĩa là?",a:["Cùng nghĩa","Trái nghĩa","Khác nghĩa","Không nghĩa"],correct:0},
+
+{q:"Từ trái nghĩa là?",a:["Giống","Ngược","Bằng","Không"],correct:1},
+{q:"Văn nghị luận là?",a:["Kể","Tả","Trình bày ý kiến","Hỏi"],correct:2},
+
+{q:"Tác giả Truyện Kiều?",a:["Nguyễn Du","Nam Cao","Tố Hữu","Xuân Diệu"],correct:0},
+{q:"Thể loại Truyện Kiều?",a:["Thơ","Truyện thơ","Kịch","Văn xuôi"],correct:1},
+
+{q:"Từ đơn là?",a:["1 tiếng","2 tiếng","3 tiếng","4 tiếng"],correct:0},
+{q:"Từ nhiều nghĩa là?",a:["1 nghĩa","Nhiều nghĩa","Không nghĩa","Sai nghĩa"],correct:1},
+
+{q:"Biện pháp so sánh là?",a:["So","Nhân hóa","Ẩn dụ","Hoán dụ"],correct:0},
+{q:"Nhân hóa là?",a:["So","Biến vật thành người","Ẩn dụ","So sánh"],correct:1}
+];
+
+let questions=[], timeLeft=1800, interval;
+
+function startQuiz(){
+document.getElementById("home").style.display="none";
+document.getElementById("quizPage").style.display="block";
+
+questions=[...bank].sort(()=>0.5-Math.random()).slice(0,20);
+loadQuiz();
+
+interval=setInterval(()=>{
+timeLeft--;
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+document.getElementById("timer").innerText=`⏱ ${m}:${s}`;
+if(timeLeft<=0){clearInterval(interval);submitQuiz();}
+},1000);
+}
+
+function loadQuiz(){
+let html="";
+questions.forEach((q,i)=>{
+html+=`<p>${i+1}. ${q.q}</p>`;
+q.a.forEach((c,j)=>{
+html+=`<label><input type="radio" name="q${i}" value="${j}"> ${c}</label><br>`;
+});
+});
+document.getElementById("quiz").innerHTML=html;
+}
+
+function submitQuiz(){
+clearInterval(interval);
+let score=0;
+questions.forEach((q,i)=>{
+let ans=document.querySelector(`input[name="q${i}"]:checked`);
+if(ans && parseInt(ans.value)===q.correct) score++;
+});
+document.getElementById("quizPage").style.display="none";
+document.getElementById("resultPage").style.display="block";
+document.getElementById("score").innerText=`Điểm: ${score}/20`;
+}
+
+function cancelQuiz(){
+window.location.href="trangchu.html";
+}
+
+function goHome(){
+window.location.href="trangchu.html";
+}
+
+</script>
+
+</body>
+</html>

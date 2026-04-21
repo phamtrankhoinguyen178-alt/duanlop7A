@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thi thử Toán - Lớp 7A</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#43cea2,#185a9d);
+text-align:center;
+color:white;
+}
+
+/* Nút quay về */
+.back{
+position:fixed;
+top:15px;
+left:15px;
+background:#00bcd4;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+text-decoration:none;
+}
+
+.back2{
+position:fixed;
+top:15px;
+right:15px;
+background:#ff9800;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+text-decoration:none;
+}
+
+/* Card */
+.box{
+width:350px;
+margin:100px auto;
+background:white;
+color:black;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+animation:fadeIn 1s;
+}
+
+/* Tiêu đề */
+h1{
+margin-top:40px;
+}
+
+/* Nút HK */
+.semester a{
+display:block;
+margin:15px 0;
+padding:15px;
+background:#4facfe;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-size:18px;
+transition:0.3s;
+}
+
+.semester a:hover{
+transform:scale(1.05);
+background:#2f80ed;
+}
+
+/* animation */
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Nút -->
+<a href="trangchu.html" class="back">⬅ Trang chủ</a>
+<a href="thithu.html" class="back2">⬅ Quay lại</a>
+
+<h1>📐 Thi thử môn Toán</h1>
+
+<div class="box">
+
+<h2>Chọn học kỳ</h2>
+
+<div class="semester">
+<a href="thi_toan_hk1.html">📗 Học kỳ I</a>
+<a href="thi_toan_hk2.html">📙 Học kỳ II</a>
+</div>
+
+</div>
+
+</body>
+</html>

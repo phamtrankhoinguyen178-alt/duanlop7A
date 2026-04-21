@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thi thử lớp 7A</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f5f7fb;
+    text-align:center;
+}
+
+/* Nút quay lại */
+.back-home{
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #4facfe;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+h1{
+    margin-top:60px;
+}
+
+/* Khung môn thi */
+.exam-list{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:50px;
+}
+
+.exam{
+    width:220px;
+    padding:30px;
+    background:white;
+    border-radius:12px;
+    text-decoration:none;
+    color:black;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.exam:hover{
+    transform:translateY(-10px);
+}
+</style>
+</head>
+
+<body>
+
+<a href="trangchu.html" class="back-home">⬅ Trang chủ</a>
+
+<h1>📝 THI THỬ CÁC MÔN</h1>
+
+<div class="exam-list">
+
+<a href="thi_toan.html" class="exam">
+<h2>📘 Thi Toán</h2>
+<p>Trắc nghiệm Toán</p>
+</a>
+
+<a href="thi_van.html" class="exam">
+<h2>📖 Thi Ngữ văn</h2>
+<p>Đọc hiểu – viết</p>
+</a>
+
+<a href="thi_anh.html" class="exam">
+<h2>🌍 Thi Tiếng Anh</h2>
+<p>Từ vựng – ngữ pháp</p>
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thành tích lớp 7A</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+text-align:center;
+color:white;
+}
+
+/* tiêu đề */
+h1{
+padding:20px;
+margin:0;
+}
+
+/* nút quay lại */
+.back{
+position:fixed;
+top:15px;
+left:15px;
+background:#4caf50;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+text-decoration:none;
+}
+
+/* container */
+.container{
+max-width:600px;
+margin:50px auto;
+}
+
+/* card học sinh */
+.student{
+background:white;
+color:black;
+margin:12px;
+padding:18px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+cursor:pointer;
+transition:0.3s;
+font-weight:bold;
+}
+
+.student:hover{
+transform:scale(1.05);
+background:#e3f2fd;
+}
+
+/* kết quả */
+.result{
+display:none;
+background:#fffde7;
+margin-top:10px;
+padding:10px;
+border-radius:8px;
+font-size:14px;
+text-align:left;
+}
+</style>
+
+<script>
+function showResult(id){
+let x=document.getElementById(id);
+x.style.display = (x.style.display==="block") ? "none" : "block";
+}
+</script>
+
+</head>
+
+<body>
+
+<a href="trangchu.html" class="back">⬅ Trang chủ</a>
+
+<h1>🏆 THÀNH TÍCH LỚP 7A</h1>
+
+<div class="container">
+
+<!-- DÙNG JS TẠO TỰ ĐỘNG -->
+<script>
+let students = [
+"Mai Trâm Anh","Nguyễn Hoàng Anh","Nguyễn Quốc Anh","Phạm Quốc Anh",
+"Nguyễn Gia Bảo","Trần Mỵ Chăm","Phan Ngọc Bảo Châu","Trần Hải Châu",
+"Trần Công Chính","Nguyễn Ngọc Băng Di","Phạm Thị Ngọc Diệp","Phạm Hoàng Nhật Duy",
+"Trần Khánh Duy","Đậu Lê Đạt","Nguyễn Hải Đông","Tạ Nam Đông",
+"Nguyễn Đôsin","Nguyễn Thị Thuý Hạnh","Nguyễn Trọng Hiếu","Nguyễn Văn Hoà",
+"Cao Long Hoàng","Nguyễn Hồ Huy Hoàng","Phạm Minh Hoàng","Lê Huy Hưng",
+"Phạm Phúc Gia Lâm","Cao Lê Khánh Linh","Ngô Khánh Linh","Nguyễn Nữ Gia Linh",
+"Ngô Phi Long","Trần Phan Sao Ly","Phan Thanh Thảo My","Phùng Thị Hà My",
+"Phạm Trần Khôi Nguyên","Phạm Minh Nhật","Phan Nguyễn Tường Như","Cao Bảo Phúc",
+"Nguyễn Quý Thông","Nguyễn Ngọc Anh Thư","Nguyễn Thanh Tú","Nguyễn Trần Hoàng Uyên"
+];
+
+for(let i=0;i<students.length;i++){
+document.write(`
+<div class="student" onclick="showResult('s${i}')">
+👨‍🎓 ${students[i]}
+<div id="s${i}" class="result">
+📚 Học lực: Khá<br>
+🎯 Điểm TB: 8.${i%10}<br>
+🏅 Danh hiệu: Học sinh tiêu biểu
+</div>
+</div>
+`);
+}
+</script>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz Toán HK2</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+
+.container{
+background:white;
+width:420px;
+margin:100px auto;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
+animation:fadeIn 1s;
+}
+
+.title{
+font-size:24px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start{background:#4caf50;color:white;}
+.submit{background:#ff9800;color:white;}
+.cancel{background:#f44336;color:white;}
+.home{background:#2196f3;color:white;}
+
+.btn:hover{
+transform:scale(1.05);
+opacity:0.9;
+}
+
+.question{text-align:left;margin-bottom:15px}
+.correct{color:green}
+.wrong{color:red}
+
+#timer{
+font-size:20px;
+color:#e91e63;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="container">
+    <div class="title">📙 QUIZ TOÁN LỚP 7 - HK2</div>
+    <button class="btn start" onclick="startQuiz()">🚀 Bắt đầu</button>
+    <button class="btn home" onclick="goHome()">⬅ Trang chủ</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quizPage" class="container" style="display:none;">
+    <div class="title">📝 Bài kiểm tra</div>
+    <div id="timer">⏱ 30:00</div>
+    <div id="quiz"></div>
+    <button class="btn submit" onclick="submitQuiz()">Nộp bài</button>
+    <button class="btn cancel" onclick="cancelQuiz()">Hủy bài</button>
+</div>
+
+<!-- RESULT -->
+<div id="resultPage" class="container" style="display:none;">
+    <div class="title">🎯 Kết quả</div>
+    <div id="score"></div>
+    <div id="answers"></div>
+    <button class="btn home" onclick="goHome()">Trang chủ</button>
+</div>
+
+<script>
+
+// ===== BANK TOÁN HK2 (khó hơn HK1)
+const bank = [
+{q:"Giá trị của 3/4 + 1/2 là?",a:["5/4","3/2","1","7/4"],correct:0},
+{q:"5x = 25 → x = ?",a:["3","4","5","6"],correct:2},
+{q:"x - 7 = 10 → x = ?",a:["17","16","15","14"],correct:0},
+{q:"Diện tích hình chữ nhật 5x8 là?",a:["40","30","20","35"],correct:0},
+
+{q:"Chu vi hình chữ nhật 5x8 là?",a:["26","40","30","20"],correct:0},
+{q:"Số đối của -9 là?",a:["-9","9","0","1"],correct:1},
+{q:"| -15 | = ?",a:["-15","15","0","1"],correct:1},
+
+{q:"2³ = ?",a:["6","8","4","2"],correct:1},
+{q:"√49 = ?",a:["6","7","8","9"],correct:1},
+
+{q:"1/3 + 2/3 = ?",a:["1","3/3","2/3","1/3"],correct:0},
+{q:"3/5 × 10 = ?",a:["5","6","7","8"],correct:1},
+
+{q:"x + 5 = 12 → x = ?",a:["5","6","7","8"],correct:2},
+{q:"2x = 14 → x = ?",a:["6","7","8","9"],correct:1},
+
+{q:"Góc bẹt bằng?",a:["90°","180°","360°","270°"],correct:1},
+{q:"Tam giác cân có?",a:["2 cạnh bằng","3 cạnh bằng","0 cạnh bằng","1 cạnh bằng"],correct:0},
+
+{q:"7 × 9 = ?",a:["56","63","72","49"],correct:1},
+{q:"12 + 8 = ?",a:["18","19","20","21"],correct:2},
+
+{q:"20 - 9 = ?",a:["9","10","11","12"],correct:2},
+{q:"18 ÷ 3 = ?",a:["5","6","7","8"],correct:1},
+
+{q:"Số nguyên tố là?",a:["4","6","7","8"],correct:2}
+];
+
+// ===== VAR
+let questions=[], timeLeft=1800, interval;
+
+// ===== START
+function startQuiz(){
+document.getElementById("home").style.display="none";
+document.getElementById("quizPage").style.display="block";
+
+questions=[...bank].sort(()=>0.5-Math.random()).slice(0,20);
+loadQuiz();
+
+timeLeft=1800;
+interval=setInterval(()=>{
+timeLeft--;
+
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+
+document.getElementById("timer").innerText=
+`⏱ ${m}:${s.toString().padStart(2,'0')}`;
+
+if(timeLeft<=60){
+document.getElementById("timer").style.color="red";
+}
+
+if(timeLeft<=0){
+clearInterval(interval);
+alert("⏰ Hết thời gian!");
+submitQuiz();
+}
+
+},1000);
+}
+
+// ===== LOAD
+function loadQuiz(){
+let html="";
+questions.forEach((q,i)=>{
+html+=`<div class="question"><p>${i+1}. ${q.q}</p>`;
+q.a.forEach((c,j)=>{
+html+=`<label><input type="radio" name="q${i}" value="${j}"> ${c}</label><br>`;
+});
+html+="</div>";
+});
+document.getElementById("quiz").innerHTML=html;
+}
+
+// ===== SUBMIT
+function submitQuiz(){
+clearInterval(interval);
+let score=0,html="";
+
+questions.forEach((q,i)=>{
+let ans=document.querySelector(`input[name="q${i}"]:checked`);
+let user=ans?parseInt(ans.value):-1;
+
+if(user===q.correct){
+score++;
+html+=`<p class="correct">Câu ${i+1}: Đúng</p>`;
+}else{
+html+=`<p class="wrong">Câu ${i+1}: Sai (Đáp án: ${q.a[q.correct]})</p>`;
+}
+});
+
+document.getElementById("quizPage").style.display="none";
+document.getElementById("resultPage").style.display="block";
+
+document.getElementById("score").innerText=`Điểm: ${score}/20`;
+document.getElementById("answers").innerHTML=html;
+}
+
+// ===== CANCEL
+function cancelQuiz(){
+clearInterval(interval);
+window.location.href="trangchu.html";
+}
+
+// ===== HOME
+function goHome(){
+window.location.href="trangchu.html";
+}
+
+</script>
+
+</body>
+</html>

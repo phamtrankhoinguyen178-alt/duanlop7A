@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài 5: Làm quen với số thập phân vô hạn tuần hoàn</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#f5520c,#4bef0b);
+    color:white;
+    text-align:center;
+}
+
+.box{
+    background:white;
+    color:black;
+    width:70%;
+    margin:60px auto;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:left;
+}
+
+.back{
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#00bcd4;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+.img{
+    width:200px;
+    display:block;
+    margin:20px auto;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#imgBox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+#imgBox img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
+}
+
+/* nút đóng */
+#imgBox span{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<a href="toan_hk1.html" class="back">⬅ Quay lại</a>
+
+<div class="box">
+    <h2>📘 Bài 5: Làm quen với số thập phân vô hạn tuần hoàn</h2>
+
+    <h3>📖 1. Thứ tự thực hiện các phép tính</h3>
+    <p>• Số thập phân vô hạn tuần hoàn là số thập phân có phần thập phân lặp lại và phần lặp lại vô hạn.</p>
+    <p>• Chu kì của số thập phân vô hạn tuần hoàn là phần được lặp lại vô hạn lần.</p>
+    <p>• Số thập phân hữu hạn là số thập phân như 0,8; 1,25; …</p>
+
+    <h3>🧠 Chú ý:</h3>
+    <ul>
+        <li>Mọi số hữu tỉ đều viết được dưới dạng số thập phân hữu hạn hoặc vô hạn tuần hoàn.</li>
+    </ul>
+
+    <h3>✏️ 2. Làm tròn số thập phân căn cứ vào độ chính xác cho trước</h3>
+    <p>• Khi làm tròn số đến một hàng nào đó, kết quả làm tròn có độ chính xác bằng một nửa đơn vị hàng làm tròn.</p>
+
+    <h3>🧠 Chú ý:</h3>
+    <ul>
+        <li>Muốn làm tròn số thập phân với độ chính xác cho trước, ta có thể xác định hàng làm tròn thích hợp bằng cách sử dụng bảng dưới đây.</li>
+    </ul>
+
+    <img src="anhbanglamtron.png" class="img" onclick="openImg(this)">
+</div>
+
+<div id="imgBox" onclick="closeImg()">
+    <span>✖</span>
+    <img id="bigImg">
+</div>
+
+<script>
+function openImg(img){
+    document.getElementById("imgBox").style.display = "flex";
+    document.getElementById("bigImg").src = img.src;
+}
+
+function closeImg(){
+    document.getElementById("imgBox").style.display = "none";
+}
+</script>
+
+</body>
+</html>

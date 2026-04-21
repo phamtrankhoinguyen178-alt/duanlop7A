@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Môn Toán</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#43cea2,#185a9d);
+text-align:center;
+color:white;
+}
+
+/* nút quay lại */
+.back{
+position:fixed;
+top:15px;
+left:15px;
+background:#00bcd4;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+text-decoration:none;
+}
+
+/* tiêu đề */
+h1{
+margin-top:60px;
+font-size:32px;
+}
+
+/* container */
+.container{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:80px;
+flex-wrap:wrap;
+}
+
+/* card */
+.semester{
+width:280px;
+padding:40px;
+background:white;
+color:black;
+border-radius:20px;
+text-decoration:none;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+font-size:22px;
+font-weight:bold;
+transition:0.3s;
+animation:fadeIn 1s;
+}
+
+/* hover */
+.semester:hover{
+transform:scale(1.05);
+background:#e0f2f1;
+}
+
+/* icon */
+.icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
+/* animation */
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<a href="monhoc.html" class="back">⬅ Môn học</a>
+
+<h1>📐 MÔN TOÁN</h1>
+
+<div class="container">
+
+<a href="toan_hk1.html" class="semester">
+<div class="icon">📗</div>
+Học kỳ I
+</a>
+
+<a href="toan_hk2.html" class="semester">
+<div class="icon">📙</div>
+Học kỳ II
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz Tiếng Anh HK2</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+.container{
+background:white;
+width:420px;
+margin:100px auto;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
+animation:fadeIn 1s;
+}
+
+.title{
+font-size:24px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start{background:#4caf50;color:white;}
+.submit{background:#ff9800;color:white;}
+.cancel{background:#f44336;color:white;}
+.home{background:#2196f3;color:white;}
+
+.btn:hover{
+transform:scale(1.05);
+opacity:0.9;
+}
+
+.question{margin-bottom:15px;text-align:left}
+.correct{color:green}
+.wrong{color:red}
+
+#timer{
+font-size:20px;
+color:#e91e63;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="container">
+    <div class="title">📙 QUIZ TIẾNG ANH LỚP 7 - HK2</div>
+    <button class="btn start" onclick="startQuiz()">🚀 Bắt đầu làm bài</button>
+    <button class="btn home" onclick="goHome()">⬅ Trang chủ</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quizPage" class="container" style="display:none;">
+    <div class="title">📝 Bài kiểm tra</div>
+    <div id="timer">⏱ 30:00</div>
+    <div id="quiz"></div>
+    <button class="btn submit" onclick="submitQuiz()">Nộp bài</button>
+    <button class="btn cancel" onclick="cancelQuiz()">Hủy bài</button>
+</div>
+
+<!-- RESULT -->
+<div id="resultPage" class="container" style="display:none;">
+    <div class="title">🎯 Kết quả</div>
+    <div id="score"></div>
+    <div id="answers"></div>
+    <button class="btn home" onclick="goHome()">Trang chủ</button>
+</div>
+
+<script>
+
+// ===== BANK HK2
+const bank = [
+{q:"I ____ to the cinema last week.",a:["go","went","goes","going"],correct:1},
+{q:"She ____ playing now.",a:["is","are","am","be"],correct:0},
+{q:"They ____ English every day.",a:["study","studies","studied","studying"],correct:0},
+{q:"We ____ TV yesterday.",a:["watch","watched","watches","watching"],correct:1},
+{q:"He ____ a new bike.",a:["have","has","had","having"],correct:1},
+
+{q:"I like ____ books.",a:["read","reading","reads","to reading"],correct:1},
+{q:"She enjoys ____ music.",a:["listen","listening","listens","to listening"],correct:1},
+{q:"They ____ football now.",a:["play","plays","are playing","played"],correct:2},
+
+{q:"You should ____ exercise.",a:["do","does","did","doing"],correct:0},
+{q:"He has a ____.",a:["toothache","pen","book","bag"],correct:0},
+
+{q:"We ____ to school yesterday.",a:["go","went","goes","going"],correct:1},
+{q:"I ____ tired now.",a:["am","is","are","was"],correct:0},
+{q:"She ____ very kind.",a:["is","are","am","be"],correct:0},
+
+{q:"They ____ in the park now.",a:["run","runs","are running","ran"],correct:2},
+{q:"He ____ breakfast at 7.",a:["have","has","had","having"],correct:1},
+
+{q:"I ____ my homework.",a:["do","did","does","doing"],correct:1},
+{q:"She ____ to school by bike.",a:["go","goes","went","going"],correct:1},
+
+{q:"We ____ English now.",a:["learn","learns","are learning","learned"],correct:2},
+{q:"They ____ happy yesterday.",a:["are","is","was","were"],correct:3},
+{q:"He ____ a student.",a:["is","are","am","be"],correct:0},
+];
+
+// ===== VAR
+let questions=[], timeLeft=1800, interval;
+
+// ===== START
+function startQuiz(){
+document.getElementById("home").style.display="none";
+document.getElementById("quizPage").style.display="block";
+
+questions=[...bank].sort(()=>0.5-Math.random()).slice(0,20);
+loadQuiz();
+
+timeLeft=1800;
+interval=setInterval(()=>{
+timeLeft--;
+
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+
+document.getElementById("timer").innerText=
+`⏱ ${m}:${s.toString().padStart(2,'0')}`;
+
+if(timeLeft<=60){
+document.getElementById("timer").style.color="red";
+}
+
+if(timeLeft<=0){
+clearInterval(interval);
+alert("⏰ Hết thời gian!");
+submitQuiz();
+}
+
+},1000);
+}
+
+// ===== LOAD
+function loadQuiz(){
+let html="";
+questions.forEach((q,i)=>{
+html+=`<div class="question"><p>${i+1}. ${q.q}</p>`;
+q.a.forEach((c,j)=>{
+html+=`<label><input type="radio" name="q${i}" value="${j}"> ${c}</label><br>`;
+});
+html+="</div>";
+});
+document.getElementById("quiz").innerHTML=html;
+}
+
+// ===== SUBMIT
+function submitQuiz(){
+clearInterval(interval);
+let score=0,html="";
+
+questions.forEach((q,i)=>{
+let ans=document.querySelector(`input[name="q${i}"]:checked`);
+let user=ans?parseInt(ans.value):-1;
+
+if(user===q.correct){
+score++;
+html+=`<p class="correct">Câu ${i+1}: Đúng</p>`;
+}else{
+html+=`<p class="wrong">Câu ${i+1}: Sai (Đáp án: ${q.a[q.correct]})</p>`;
+}
+});
+
+document.getElementById("quizPage").style.display="none";
+document.getElementById("resultPage").style.display="block";
+
+document.getElementById("score").innerText=`Điểm: ${score}/20`;
+document.getElementById("answers").innerHTML=html;
+}
+
+// ===== CANCEL
+function cancelQuiz(){
+clearInterval(interval);
+window.location.href="trangchu.html";
+}
+
+// ===== HOME
+function goHome(){
+window.location.href="trangchu.html";
+}
+
+</script>
+
+</body>
+</html>

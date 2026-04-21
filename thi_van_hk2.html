@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz Văn HK2</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+
+.container{
+background:white;
+width:420px;
+margin:100px auto;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
+animation:fadeIn 1s;
+}
+
+.title{
+font-size:24px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start{background:#4caf50;color:white;}
+.submit{background:#ff9800;color:white;}
+.cancel{background:#f44336;color:white;}
+.home{background:#2196f3;color:white;}
+
+.btn:hover{
+transform:scale(1.05);
+opacity:0.9;
+}
+
+.question{text-align:left;margin-bottom:15px}
+.correct{color:green}
+.wrong{color:red}
+
+#timer{
+font-size:20px;
+color:#e91e63;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="container">
+    <div class="title">📙 QUIZ NGỮ VĂN LỚP 7 - HK2</div>
+    <button class="btn start" onclick="startQuiz()">🚀 Bắt đầu</button>
+    <button class="btn home" onclick="goHome()">⬅ Trang chủ</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quizPage" class="container" style="display:none;">
+    <div id="timer">⏱ 30:00</div>
+    <div id="quiz"></div>
+    <button class="btn submit" onclick="submitQuiz()">Nộp bài</button>
+    <button class="btn cancel" onclick="cancelQuiz()">Hủy bài</button>
+</div>
+
+<!-- RESULT -->
+<div id="resultPage" class="container" style="display:none;">
+    <div class="title">🎯 Kết quả</div>
+    <div id="score"></div>
+    <div id="answers"></div>
+    <button class="btn home" onclick="goHome()">Trang chủ</button>
+</div>
+
+<script>
+
+// ===== BANK VĂN HK2
+const bank = [
+{q:"Văn bản nghị luận dùng để?",a:["Kể chuyện","Miêu tả","Trình bày ý kiến","Biểu cảm"],correct:2},
+{q:"Tác giả 'Lặng lẽ Sa Pa' là?",a:["Nguyễn Thành Long","Nam Cao","Nguyễn Du","Xuân Diệu"],correct:0},
+{q:"Thể loại 'Lặng lẽ Sa Pa' là?",a:["Thơ","Truyện ngắn","Kịch","Tùy bút"],correct:1},
+
+{q:"Biện pháp ẩn dụ là?",a:["So sánh","Gọi tên khác","Nhân hóa","Điệp từ"],correct:1},
+{q:"Nhân hóa là?",a:["So sánh","Ẩn dụ","Biến vật thành người","Điệp"],correct:2},
+
+{q:"Điệp từ là?",a:["Lặp từ","So sánh","Ẩn dụ","Nhân hóa"],correct:0},
+{q:"Thơ tự do là?",a:["Có vần","Không vần cố định","6-8","7 chữ"],correct:1},
+
+{q:"Từ đồng âm là?",a:["Cùng âm khác nghĩa","Cùng nghĩa","Trái nghĩa","Không nghĩa"],correct:0},
+{q:"Từ nhiều nghĩa là?",a:["1 nghĩa","Nhiều nghĩa","Không nghĩa","Sai"],correct:1},
+
+{q:"Câu cảm thán dùng để?",a:["Hỏi","Kể","Bộc lộ cảm xúc","Ra lệnh"],correct:2},
+{q:"Câu nghi vấn là?",a:["Kể","Hỏi","Cảm","Ra lệnh"],correct:1},
+
+{q:"Chủ đề văn bản là?",a:["Ý chính","Phụ","Từ","Câu"],correct:0},
+{q:"Bố cục văn bản gồm?",a:["1 phần","2 phần","3 phần","4 phần"],correct:2},
+
+{q:"Tác giả 'Đồng chí' là?",a:["Chính Hữu","Tố Hữu","Nam Cao","Nguyễn Du"],correct:0},
+{q:"Thể thơ 'Đồng chí' là?",a:["Tự do","Lục bát","Song thất","Ngũ ngôn"],correct:0},
+
+{q:"Từ ghép là?",a:["Ghép 2 từ","Lặp âm","Từ đơn","Không"],correct:0},
+{q:"Từ láy là?",a:["Lặp âm","Ghép","Đơn","Sai"],correct:0},
+
+{q:"So sánh là?",a:["So 2 sự vật","Ẩn dụ","Nhân hóa","Điệp"],correct:0},
+{q:"Văn biểu cảm là?",a:["Kể","Tả","Bộc lộ cảm xúc","Nghị luận"],correct:2},
+
+{q:"Truyện ngắn là?",a:["Ngắn","Dài","Thơ","Kịch"],correct:0}
+];
+
+// ===== VAR
+let questions=[], timeLeft=1800, interval;
+
+// ===== START
+function startQuiz(){
+document.getElementById("home").style.display="none";
+document.getElementById("quizPage").style.display="block";
+
+questions=[...bank].sort(()=>0.5-Math.random()).slice(0,20);
+loadQuiz();
+
+timeLeft=1800;
+interval=setInterval(()=>{
+timeLeft--;
+
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+
+document.getElementById("timer").innerText=
+`⏱ ${m}:${s.toString().padStart(2,'0')}`;
+
+if(timeLeft<=60){
+document.getElementById("timer").style.color="red";
+}
+
+if(timeLeft<=0){
+clearInterval(interval);
+alert("⏰ Hết thời gian!");
+submitQuiz();
+}
+
+},1000);
+}
+
+// ===== LOAD
+function loadQuiz(){
+let html="";
+questions.forEach((q,i)=>{
+html+=`<div class="question"><p>${i+1}. ${q.q}</p>`;
+q.a.forEach((c,j)=>{
+html+=`<label><input type="radio" name="q${i}" value="${j}"> ${c}</label><br>`;
+});
+html+="</div>";
+});
+document.getElementById("quiz").innerHTML=html;
+}
+
+// ===== SUBMIT
+function submitQuiz(){
+clearInterval(interval);
+let score=0,html="";
+
+questions.forEach((q,i)=>{
+let ans=document.querySelector(`input[name="q${i}"]:checked`);
+let user=ans?parseInt(ans.value):-1;
+
+if(user===q.correct){
+score++;
+html+=`<p class="correct">Câu ${i+1}: Đúng</p>`;
+}else{
+html+=`<p class="wrong">Câu ${i+1}: Sai (Đáp án: ${q.a[q.correct]})</p>`;
+}
+});
+
+document.getElementById("quizPage").style.display="none";
+document.getElementById("resultPage").style.display="block";
+
+document.getElementById("score").innerText=`Điểm: ${score}/20`;
+document.getElementById("answers").innerHTML=html;
+}
+
+// ===== CANCEL
+function cancelQuiz(){
+clearInterval(interval);
+window.location.href="trangchu.html";
+}
+
+// ===== HOME
+function goHome(){
+window.location.href="trangchu.html";
+}
+
+</script>
+
+</body>
+</html>
