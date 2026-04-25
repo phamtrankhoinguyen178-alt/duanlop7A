@@ -70,7 +70,7 @@ to{opacity:1; transform:translateY(0);}
 
 <body>
 
-<!-- HOME -->
+
 <div id="home" class="container">
     <div class="title">📙 QUIZ TOÁN LỚP 7 - HK2</div>
     <button class="btn start" onclick="startQuiz()">🚀 Bắt đầu</button>
@@ -96,7 +96,7 @@ to{opacity:1; transform:translateY(0);}
 
 <script>
 
-// ===== BANK TOÁN HK2 (khó hơn HK1)
+
 const bank = [
 {q:"Giá trị của 3/4 + 1/2 là?",a:["5/4","3/2","1","7/4"],correct:0},
 {q:"5x = 25 → x = ?",a:["3","4","5","6"],correct:2},
@@ -128,10 +128,10 @@ const bank = [
 {q:"Số nguyên tố là?",a:["4","6","7","8"],correct:2}
 ];
 
-// ===== VAR
+
 let questions=[], timeLeft=1800, interval;
 
-// ===== START
+
 function startQuiz(){
 document.getElementById("home").style.display="none";
 document.getElementById("quizPage").style.display="block";
@@ -162,7 +162,7 @@ submitQuiz();
 },1000);
 }
 
-// ===== LOAD
+
 function loadQuiz(){
 let html="";
 questions.forEach((q,i)=>{
@@ -175,7 +175,7 @@ html+="</div>";
 document.getElementById("quiz").innerHTML=html;
 }
 
-// ===== SUBMIT
+
 function submitQuiz(){
 clearInterval(interval);
 let score=0,html="";
@@ -199,15 +199,15 @@ document.getElementById("score").innerText=`Điểm: ${score}/20`;
 document.getElementById("answers").innerHTML=html;
 }
 
-// ===== CANCEL
+
 function cancelQuiz(){
 clearInterval(interval);
-window.location.href="trangchu.html";
+window.location.href="index.html";
 }
 
-// ===== HOME
+
 function goHome(){
-window.location.href="trangchu.html";
+window.location.href="index.html";
 }
 
 </script>

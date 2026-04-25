@@ -70,14 +70,14 @@ to{opacity:1; transform:translateY(0);}
 
 <body>
 
-<!-- HOME -->
+
 <div id="home" class="container">
     <div class="title">📐 QUIZ TOÁN LỚP 7 - HK1</div>
     <button class="btn start" onclick="startQuiz()">🚀 Bắt đầu</button>
     <button class="btn home" onclick="goHome()">⬅ Trang chủ</button>
 </div>
 
-<!-- QUIZ -->
+
 <div id="quizPage" class="container" style="display:none;">
     <div class="title">📝 Bài kiểm tra</div>
     <div id="timer">⏱ 30:00</div>
@@ -86,7 +86,7 @@ to{opacity:1; transform:translateY(0);}
     <button class="btn cancel" onclick="cancelQuiz()">Hủy bài</button>
 </div>
 
-<!-- RESULT -->
+
 <div id="resultPage" class="container" style="display:none;">
     <div class="title">🎯 Kết quả</div>
     <div id="score"></div>
@@ -96,7 +96,7 @@ to{opacity:1; transform:translateY(0);}
 
 <script>
 
-// ===== BANK TOÁN HK1
+
 const bank = [
 {q:"2 + 3 = ?",a:["4","5","6","7"],correct:1},
 {q:"5 × 6 = ?",a:["30","25","20","35"],correct:0},
@@ -128,10 +128,10 @@ const bank = [
 {q:"20 ÷ 5 = ?",a:["2","3","4","5"],correct:2}
 ];
 
-// ===== VAR
+
 let questions=[], timeLeft=1800, interval;
 
-// ===== START
+
 function startQuiz(){
 document.getElementById("home").style.display="none";
 document.getElementById("quizPage").style.display="block";
@@ -162,7 +162,7 @@ submitQuiz();
 },1000);
 }
 
-// ===== LOAD
+
 function loadQuiz(){
 let html="";
 questions.forEach((q,i)=>{
@@ -175,7 +175,7 @@ html+="</div>";
 document.getElementById("quiz").innerHTML=html;
 }
 
-// ===== SUBMIT
+
 function submitQuiz(){
 clearInterval(interval);
 let score=0,html="";
@@ -199,15 +199,15 @@ document.getElementById("score").innerText=`Điểm: ${score}/20`;
 document.getElementById("answers").innerHTML=html;
 }
 
-// ===== CANCEL
+
 function cancelQuiz(){
 clearInterval(interval);
-window.location.href="trangchu.html";
+window.location.href="index.html";
 }
 
-// ===== HOME
+
 function goHome(){
-window.location.href="trangchu.html";
+window.location.href="index.html";
 }
 
 </script>

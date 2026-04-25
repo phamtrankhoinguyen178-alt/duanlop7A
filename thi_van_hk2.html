@@ -70,14 +70,14 @@ to{opacity:1; transform:translateY(0);}
 
 <body>
 
-<!-- HOME -->
+
 <div id="home" class="container">
     <div class="title">📙 QUIZ NGỮ VĂN LỚP 7 - HK2</div>
     <button class="btn start" onclick="startQuiz()">🚀 Bắt đầu</button>
     <button class="btn home" onclick="goHome()">⬅ Trang chủ</button>
 </div>
 
-<!-- QUIZ -->
+
 <div id="quizPage" class="container" style="display:none;">
     <div id="timer">⏱ 30:00</div>
     <div id="quiz"></div>
@@ -85,7 +85,7 @@ to{opacity:1; transform:translateY(0);}
     <button class="btn cancel" onclick="cancelQuiz()">Hủy bài</button>
 </div>
 
-<!-- RESULT -->
+
 <div id="resultPage" class="container" style="display:none;">
     <div class="title">🎯 Kết quả</div>
     <div id="score"></div>
@@ -95,7 +95,7 @@ to{opacity:1; transform:translateY(0);}
 
 <script>
 
-// ===== BANK VĂN HK2
+
 const bank = [
 {q:"Văn bản nghị luận dùng để?",a:["Kể chuyện","Miêu tả","Trình bày ý kiến","Biểu cảm"],correct:2},
 {q:"Tác giả 'Lặng lẽ Sa Pa' là?",a:["Nguyễn Thành Long","Nam Cao","Nguyễn Du","Xuân Diệu"],correct:0},
@@ -128,10 +128,9 @@ const bank = [
 {q:"Truyện ngắn là?",a:["Ngắn","Dài","Thơ","Kịch"],correct:0}
 ];
 
-// ===== VAR
+
 let questions=[], timeLeft=1800, interval;
 
-// ===== START
 function startQuiz(){
 document.getElementById("home").style.display="none";
 document.getElementById("quizPage").style.display="block";
@@ -162,7 +161,7 @@ submitQuiz();
 },1000);
 }
 
-// ===== LOAD
+
 function loadQuiz(){
 let html="";
 questions.forEach((q,i)=>{
@@ -175,7 +174,7 @@ html+="</div>";
 document.getElementById("quiz").innerHTML=html;
 }
 
-// ===== SUBMIT
+
 function submitQuiz(){
 clearInterval(interval);
 let score=0,html="";
@@ -199,15 +198,15 @@ document.getElementById("score").innerText=`Điểm: ${score}/20`;
 document.getElementById("answers").innerHTML=html;
 }
 
-// ===== CANCEL
+
 function cancelQuiz(){
 clearInterval(interval);
-window.location.href="trangchu.html";
+window.location.href="index.html";
 }
 
-// ===== HOME
+
 function goHome(){
-window.location.href="trangchu.html";
+window.location.href="index.html";
 }
 
 </script>

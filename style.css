@@ -4,7 +4,7 @@ body{
     background:#f5f7fb;
 }
 
-/* Header */
+
 header{
     display:flex;
     justify-content:space-between;
@@ -44,7 +44,7 @@ img.banner{
     border-radius:8px;
 }
 
-/* Thanh chạy dưới cùng */
+
 .quote-run{
     position: fixed;
     bottom: 0;
@@ -80,14 +80,14 @@ img.banner{
 }
 
 
-/* Menu box */
+
 .menu-box{
     display:flex;
     gap:20px;
     padding:40px;
 }
 
-/* Phần môn học */
+
 .subjects{
     padding:50px;
     background:#ffffff;
